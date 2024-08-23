@@ -1408,6 +1408,7 @@ ImGuiIO::ImGuiIO()
     DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
 
     // Docking options (when ImGuiConfigFlags_DockingEnable is set)
+    ConfigDockingAnyDraggableArea = false;
     ConfigDockingNoSplit = false;
     ConfigDockingWithShift = false;
     ConfigDockingAlwaysTabBar = false;
@@ -19660,7 +19661,8 @@ void ImGui::BeginDockableDragDropSource(ImGuiWindow* window)
     g.LastItemData.ID = window->MoveId;
     window = window->RootWindowDockTree;
     IM_ASSERT((window->Flags & ImGuiWindowFlags_NoDocking) == 0);
-    bool is_drag_docking = (g.IO.ConfigDockingWithShift) || ImRect(0, 0, window->SizeFull.x, GetFrameHeight()).Contains(g.ActiveIdClickOffset); // FIXME-DOCKING: Need to make this stateful and explicit
+    bool is_dragging_title_bar = ImRect(0, 0, window->SizeFull.x, GetFrameHeight()).Contains(g.ActiveIdClickOffset); // FIXME-DOCKING: Need to make this stateful and explicit
+    bool is_drag_docking = (g.IO.ConfigDockingWithShift) || is_dragging_title_bar || g.IO.ConfigDockingAnyDraggableArea;
     ImGuiDragDropFlags drag_drop_flags = ImGuiDragDropFlags_SourceNoPreviewTooltip | ImGuiDragDropFlags_SourceNoHoldToOpenOthers | ImGuiDragDropFlags_PayloadAutoExpire | ImGuiDragDropFlags_PayloadNoCrossContext | ImGuiDragDropFlags_PayloadNoCrossProcess;
     if (is_drag_docking && BeginDragDropSource(drag_drop_flags))
     {

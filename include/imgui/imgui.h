@@ -2317,6 +2317,7 @@ struct ImGuiIO
     ImVec2      DisplayFramebufferScale;        // = (1, 1)         // For retina display or other situations where window coordinates are different from framebuffer coordinates. This generally ends up in ImDrawData::FramebufferScale.
 
     // Docking options (when ImGuiConfigFlags_DockingEnable is set)
+    bool        ConfigDockingAnyDraggableArea;  // = false          // Enable docking an imgui window when dragging from anywhere within its available area
     bool        ConfigDockingNoSplit;           // = false          // Simplified docking mode: disable window splitting, so docking is limited to merging multiple windows together into tab-bars.
     bool        ConfigDockingWithShift;         // = false          // Enable docking with holding Shift key (reduce visual noise, allows dropping in wider space)
     bool        ConfigDockingAlwaysTabBar;      // = false          // [BETA] [FIXME: This currently creates regression with auto-sizing and general overhead] Make every single floating window display within a docking node.
